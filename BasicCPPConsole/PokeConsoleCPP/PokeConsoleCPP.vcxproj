@@ -128,8 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ability.cpp" />
+    <ClCompile Include="AllAbilities.cpp" />
     <ClCompile Include="AllPokeTypes.cpp" />
-    <ClCompile Include="Enumerators.cpp" />
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="PokeConsoleCPP.cpp" />
     <ClCompile Include="Pokemon.cpp" />
     <ClCompile Include="PokeType.cpp" />
@@ -137,8 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ability.h" />
+    <ClInclude Include="AllAbilities.h" />
     <ClInclude Include="AllPokeTypes.h" />
-    <ClInclude Include="Enumerators.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="Pokemon.h" />
     <ClInclude Include="PokeType.h" />
     <ClInclude Include="Trainer.h" />

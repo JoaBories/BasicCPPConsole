@@ -28,5 +28,6 @@ public :
 	Types GetWeakNess();
 	Types GetResistance();
 	string GetName();
+	void infoPokeType();
 };
 

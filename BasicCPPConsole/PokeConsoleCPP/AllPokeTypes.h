@@ -8,7 +8,6 @@ using std::map;
 class AllPokeTypes
 {
 private :
-
 	map<Types, PokeType> mAllPokeTypes;
 	
 	AllPokeTypes();

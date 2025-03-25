@@ -1,6 +1,6 @@
-#include "Enumerators.h"
+#include "Items.h"
 
-Enumerators::Enumerators()
+Items::Items()
 {
 	mInventoryItemsNames = {
 		{ InventoryItems::Potion, "Potion" },
@@ -8,12 +8,12 @@ Enumerators::Enumerators()
 	};
 }
 
-Enumerators::~Enumerators()
+Items::~Items()
 {
 
 }
 
-string Enumerators::GetInventoryItemName(InventoryItems item)
+string Items::GetInventoryItemName(InventoryItems item)
 {
 	return mInventoryItemsNames[item];
 }

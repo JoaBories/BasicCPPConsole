@@ -13,14 +13,14 @@ enum class InventoryItems
 	Pokeball
 };
 
-class Enumerators
+class Items
 {
 private :
 	map<InventoryItems, string> mInventoryItemsNames;
 
 public :
-	Enumerators();
-	~Enumerators();
+	Items();
+	~Items();
 
 	string GetInventoryItemName(InventoryItems item);
 

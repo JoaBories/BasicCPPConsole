@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AllPokeTypes.h"
-#include "Ability.h"
+#include "AllAbilities.h"
 
 class Pokemon
 {
@@ -12,14 +12,12 @@ private :
 	int mAttack;
 	int mDefense;
 	int mSpeed;
-	//Ability mAbilities[4];
-	PokeType* mTypes[2];
-	//PokeType *mFirstType;
-	//PokeType *mSecondType;
+	Ability *mAbilities[4];
+	PokeType *mTypes[2];
 
 public:
 	Pokemon();
-	Pokemon(string name, int maxHp, int attack, int defense, int speed,Types type1, Types type2);
+	Pokemon(string name, int maxHp, int attack, int defense, int speed,Types types[2], string abilities[4]);
 	~Pokemon();
 	void DisplayInfos();
 
