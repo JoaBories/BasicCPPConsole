@@ -1,13 +1,9 @@
 #include "Trainer.h"
+#include "Pokemon.h"
 
 int main()
 {
-    Trainer player;
-    player.DisplayInfos();
-    player.AddItemToInventory(InventoryItems::Pokeball, 10);
-    player.AddItemToInventory(InventoryItems::Potion, 5);
-    player.RemoveItemFromInventory(InventoryItems::Pokeball, 11);
-    player.DisplayInfos();
-
+    Pokemon volcanion = Pokemon("Volcanion", 80, 120, 105, Types::Fire, Types::Water);
+    volcanion.DisplayInfos();
     return 0;
 }
