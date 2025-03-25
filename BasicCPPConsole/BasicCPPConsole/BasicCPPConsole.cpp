@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <limits>
 
 using std::cout;
 using std::cin;
@@ -9,9 +10,10 @@ using std::rand;
 using std::string;
 using std::vector;
 using std::map;
+using std::numeric_limits;
+using std::streamsize;
 
 #pragma region Function
-
 
 void JumpLine() 
 {
@@ -84,11 +86,24 @@ int AskForInt(string firstQ, string secondQ, int maxAnswer) //  1 - Yes / 2 - No
     cout << firstQ << endl;
 
     cin >> playerAnswer;
+    if (!cin.good()) 
+    {
+        playerAnswer = 0;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
 
     while (playerAnswer > maxAnswer || playerAnswer < 1)
     {
         cout << secondQ << endl;
         cin >> playerAnswer;
+
+        if (!cin.good())
+        {
+            playerAnswer = 0;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
     }
 
     return playerAnswer;
@@ -165,14 +180,14 @@ int main()
     {
         cout << "TIP : consider to be a Mage" << endl;
     }
-    else if (abilities["intelligence"] >= 33 && abilities["dexterity"] >= 33)
+    else if (abilities["intelligence"] >= 20 && abilities["dexterity"] >= 42)
     {
         cout << "TIP : consider to be a Rogue" << endl;
     }
 
     JumpLine();
 
-    playerAnswerInt = AskForInt("So now what do you want to become ?\n 1 - Warrior \n 2 - Rogue \n 3 - Mage \n 4 - Barbarian", "Answer with 1, 2, 3 or 4", 4);
+    playerAnswerInt = AskForInt("So now what do you want to become ?\n 1 - Warrior \n 2 - Archer \n 3 - Mage \n 4 - Barbarian", "Answer with 1, 2, 3 or 4", 4);
 
     switch (playerAnswerInt)
     {
@@ -181,8 +196,8 @@ int main()
         playerClass = 'W';
         break;
     case 2:
-        cout << "So " << playerName << " the Rogue, Ok" << endl;
-        playerClass = 'R';
+        cout << "So " << playerName << " the Archer, Ok" << endl;
+        playerClass = 'A';
         break;
     case 3:
         cout << "So " << playerName << " the Mage, Ok" << endl;
