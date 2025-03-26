@@ -8,7 +8,6 @@ class Trainer : public IDisplayable
 {
 private:
 	string mName;
-	Inventory mInventory;
 	Pokemon mPokemons[6];
 	
 public: 
@@ -17,6 +16,9 @@ public:
 
 	string GetName() const;
 	void SetName(string name);
+
+	Inventory inventory;
+
 
 	// Inherited via IDisplayable
 	void Display() const override;

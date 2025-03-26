@@ -7,7 +7,7 @@ Pokeball::Pokeball() :
 
 }
 
-Pokeball::Pokeball(string name, string description, int captureRate) : 
+Pokeball::Pokeball(string name, string description, float captureRate) : 
 	Item{ name, description },
 	mCaptureRate{ captureRate }
 {

@@ -7,7 +7,7 @@ private :
 
 public :
 	Pokeball();
-	Pokeball(string name, string description, int captureRate);
+	Pokeball(string name, string description, float captureRate);
 	~Pokeball();
 
 	float GetCaptureRate() const;

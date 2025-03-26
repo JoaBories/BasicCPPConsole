@@ -3,7 +3,7 @@
 Trainer::Trainer() :
 	mName{ "John Doe" }
 {
-	
+	inventory = Inventory();
 }
 
 Trainer::~Trainer()
@@ -24,5 +24,5 @@ void Trainer::SetName(string name)
 void Trainer::Display() const
 {
 	cout << mName << endl;
-	mInventory.Display();
+	inventory.Display();
 }
