@@ -26,10 +26,5 @@ AllAbilities* AllAbilities::Get()
 
 Ability* AllAbilities::GetAbilityPtr(string name)
 {
-	//if (mAllAbilities.find(name) == mAllAbilities.end())
-	//{
-	//	return &mAllAbilities["Null"];
-	//}
-
 	return &mAllAbilities[name];
 }

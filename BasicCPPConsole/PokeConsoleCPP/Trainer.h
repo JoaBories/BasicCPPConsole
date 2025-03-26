@@ -1,20 +1,22 @@
 #pragma once
 
 #include "Pokemon.h"
+#include "AllItems.h"
+#include "Inventory.h"
 
 class Trainer : public IDisplayable
 {
-private :
+private:
 	string mName;
-	string mPokemons[6];
+	Inventory mInventory;
+	Pokemon mPokemons[6];
 	
-public : 
+public: 
 	Trainer();
 	~Trainer();
 
 	string GetName() const;
 	void SetName(string name);
-
 
 	// Inherited via IDisplayable
 	void Display() const override;

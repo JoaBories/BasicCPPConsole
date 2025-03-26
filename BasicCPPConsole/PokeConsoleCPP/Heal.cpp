@@ -25,5 +25,5 @@ int Heal::GetAmount() const
 
 void Heal::Display() const
 {
-	cout << mName << " | " << mDescription << " | " << endl;
+	cout << mName << " | " << mDescription << " | " << mAmount << endl;
 }

@@ -5,7 +5,7 @@
 
 class Pokemon : public IDisplayable
 {
-private :
+private:
 	string mName;
 	int mMaxHp;
 	int mHp;

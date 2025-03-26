@@ -5,6 +5,12 @@
 
 using std::string;
 
+enum class ItemType
+{
+	Heal,
+	Pokeball
+};
+
 class Item : public IDisplayable
 {
 protected :
