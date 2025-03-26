@@ -3,7 +3,7 @@
 
 int main()
 {
-    Pokemon volcanion = Pokemon("Volcanion", 80, 120, 105, Types::Fire, Types::Water);
+    Pokemon volcanion = Pokemon("Volcanion", 80, 120, 105, 70, Types::Fire, Types::Water);
     volcanion.DisplayInfos();
     return 0;
 }
