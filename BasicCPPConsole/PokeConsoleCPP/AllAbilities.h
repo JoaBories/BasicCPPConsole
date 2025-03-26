@@ -10,10 +10,10 @@ class AllAbilities
 private:
 	map<string, Ability> mAllAbilities;
 
+public:
 	AllAbilities();
 	~AllAbilities();
 
-public:
 	static AllAbilities* instancePtr;
 	static AllAbilities* Get();
 

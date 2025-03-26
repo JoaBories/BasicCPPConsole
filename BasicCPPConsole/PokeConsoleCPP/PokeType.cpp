@@ -1,4 +1,4 @@
-#include "PokeType.h"
+ #include "PokeType.h"
 
 PokeType::PokeType()
 {
@@ -21,17 +21,17 @@ PokeType::~PokeType()
 
 }
 
-Types PokeType::GetWeakNess()
+Types PokeType::GetWeakNess() const
 {
 	return mWeakTo;
 }
 
-Types PokeType::GetResistance()
+Types PokeType::GetResistance() const
 {
 	return mResistTo;
 }
 
-string PokeType::GetName()
+string PokeType::GetName() const
 {
 	return mName;
 }

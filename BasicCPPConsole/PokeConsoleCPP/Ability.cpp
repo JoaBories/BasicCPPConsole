@@ -52,42 +52,42 @@ Ability::~Ability()
 {
 }
 
-string Ability::GetName()
+string Ability::GetName() const
 {
 	return mName;
 }
 
-string Ability::GetCategory()
+string Ability::GetCategory() const
 {
 	return mCategory;
 }
 
-int Ability::GetPower()
+int Ability::GetPower() const
 {
 	return mPower;
 }
 
-int Ability::GetAccuracy()
+int Ability::GetAccuracy() const
 {
 	return mAccuracy;
 }
 
-Stats Ability::GetStatToChange()
+Stats Ability::GetStatToChange() const
 {
 	return mStatToChange;
 }
 
-int Ability::GetAmountToChange()
+int Ability::GetAmountToChange() const
 {
 	return mAmountToChange;
 }
 
-bool Ability::GetApplyOnMyself()
+bool Ability::GetApplyOnMyself() const
 {
 	return mApplyOnMyself;
 }
 
-void Ability::InfoAbility()
+void Ability::Display() const
 {
 	cout << mName << " | " << mType->GetName() << " | " << mCategory << endl;
 }

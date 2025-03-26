@@ -3,10 +3,7 @@
 #include "AllPokeTypes.h"
 #include <string>
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
+#include "IDisplayable.h"
 
 using std::string;
 
@@ -18,7 +15,7 @@ enum class Stats
 	Speed
 };
 
-class Ability
+class Ability : public IDisplayable
 {
 private:
 	string mName;
@@ -40,15 +37,16 @@ public:
 
 	~Ability();
 
-	string GetName();
-	string GetCategory();
-	int GetPower();
-	int GetAccuracy();
-	Stats GetStatToChange();
-	int GetAmountToChange();
-	bool GetApplyOnMyself();
+	string GetName() const ;
+	string GetCategory() const ;
+	int GetPower() const ;
+	int GetAccuracy() const ;
+	Stats GetStatToChange() const ;
+	int GetAmountToChange() const ;
+	bool GetApplyOnMyself() const ;
 
-	void InfoAbility();
+	// Inherited via IDisplayable
+	void Display() const override;
 
 };
 

@@ -25,9 +25,9 @@ public :
 	PokeType();
 	PokeType(Types type, Types weak, Types resist, string name);
 	~PokeType();
-	Types GetWeakNess();
-	Types GetResistance();
-	string GetName();
-	void infoPokeType();
+
+	Types GetWeakNess() const ;
+	Types GetResistance() const ;
+	string GetName() const ;
 };
 

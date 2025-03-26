@@ -42,7 +42,7 @@ Pokemon::~Pokemon()
 {
 }
 
-void Pokemon::DisplayInfos()
+void Pokemon::Display() const
 {
 	cout << mName << endl;
 	cout << mHp << "/" << mMaxHp << " HP" << endl;
@@ -52,6 +52,6 @@ void Pokemon::DisplayInfos()
 	cout << "Abilities : " << endl;
 	for (int i = 0; i < 4; i++)
 	{
-		mAbilities[i]->InfoAbility();
+		mAbilities[i]->Display();
 	}
 }

@@ -3,7 +3,7 @@
 #include "AllPokeTypes.h"
 #include "AllAbilities.h"
 
-class Pokemon
+class Pokemon : public IDisplayable
 {
 private :
 	string mName;
@@ -19,7 +19,9 @@ public:
 	Pokemon();
 	Pokemon(string name, int maxHp, int attack, int defense, int speed,Types types[2], string abilities[4]);
 	~Pokemon();
-	void DisplayInfos();
+
+	// Inherited via IDisplayable
+	void Display() const override;
 
 };
 

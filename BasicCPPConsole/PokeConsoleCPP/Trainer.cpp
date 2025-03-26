@@ -1,12 +1,9 @@
 #include "Trainer.h"
 
 Trainer::Trainer() :
-
-	mName("John Doe"),
-	mEnumerators()
+	mName{ "John Doe" }
 {
-	mInventory[InventoryItems::Pokeball] = 0;
-	mInventory[InventoryItems::Potion] = 0;
+
 }
 
 Trainer::~Trainer()
@@ -14,14 +11,7 @@ Trainer::~Trainer()
 
 }
 
-void Trainer::DisplayInfos()
-{
-	cout << mName << endl;
-	DisplayPokemons();
-	DisplayInventory();
-}
-
-string Trainer::GetName()
+string Trainer::GetName() const
 {
 	return mName;
 }
@@ -31,29 +21,7 @@ void Trainer::SetName(string name)
 	mName = name;
 }
 
-void Trainer::DisplayPokemons()
+void Trainer::Display() const
 {
-
-}
-
-void Trainer::AddItemToInventory(InventoryItems itemType, int number)
-{
-	mInventory[itemType] += number;
-}
-
-void Trainer::RemoveItemFromInventory(InventoryItems itemType, int number)
-{
-	if (mInventory[itemType] >= number) {
-		mInventory[itemType] -= number;
-	}
-	else {
-		mInventory[itemType] = 0;
-	}
-}
-
-void Trainer::DisplayInventory()
-{
-	for (pair<InventoryItems, int> item : mInventory) {
-		cout << mEnumerators.GetInventoryItemName(item.first) << " | " << item.second << endl;
-	}
+	cout << mName << endl;
 }
