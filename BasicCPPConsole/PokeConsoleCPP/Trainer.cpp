@@ -21,8 +21,8 @@ void Trainer::SetName(string name)
 	mName = name;
 }
 
-void Trainer::Display() const
+void Trainer::Display(bool isShort) const
 {
 	cout << mName << endl;
-	inventory.Display();
+	inventory.Display(true);
 }

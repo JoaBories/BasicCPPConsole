@@ -21,6 +21,11 @@ PokeType::~PokeType()
 
 }
 
+Types PokeType::GetType() const
+{
+	return mType;
+}
+
 Types PokeType::GetWeakNess() const
 {
 	return mWeakTo;

@@ -23,7 +23,7 @@ int Heal::GetAmount() const
 	return mAmount;
 }
 
-void Heal::Display() const
+void Heal::Display(bool isShort) const
 {
 	cout << mName << " | " << mDescription << " | " << mAmount << endl;
 }

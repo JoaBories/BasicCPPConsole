@@ -23,7 +23,7 @@ float Pokeball::GetCaptureRate() const
 	return mCaptureRate;
 }
 
-void Pokeball::Display() const
+void Pokeball::Display(bool isShort) const
 {
 	cout << mName << " | " << mDescription << " | " << mCaptureRate << endl;
 }

@@ -11,7 +11,6 @@ AllAbilities::AllAbilities()
 
 	mAllAbilities["Null"] = Ability();
 	mAllAbilities["Flame Burst"] = Ability("Flame Burst", Types::Fire, 70, 100);
-	mAllAbilities["Withdraw"] = Ability("Withdraw", Types::Water, Stats::Defense, 6, true);
 }
 
 AllAbilities::~AllAbilities()

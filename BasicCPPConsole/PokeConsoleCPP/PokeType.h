@@ -26,6 +26,7 @@ public :
 	PokeType(Types type, Types weak, Types resist, string name);
 	~PokeType();
 
+	Types GetType() const ;
 	Types GetWeakNess() const ;
 	Types GetResistance() const ;
 	string GetName() const ;

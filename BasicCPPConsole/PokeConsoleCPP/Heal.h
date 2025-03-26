@@ -15,6 +15,6 @@ public:
 	int GetAmount() const;
 
 	// Inherited via Item
-	void Display() const override;
+	void Display(bool isShort) const override;
 };
 

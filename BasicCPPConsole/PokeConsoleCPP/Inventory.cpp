@@ -38,7 +38,7 @@ void Inventory::RemoveItemFromInventory(string name)
 	}
 }
 
-void Inventory::Display() const
+void Inventory::Display(bool isShort) const
 {
 	for (pair<string, InventoryEntry> entry : mInventory)
 	{

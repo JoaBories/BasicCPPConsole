@@ -25,6 +25,6 @@ public:
 	void RemoveItemFromInventory(string name);
 
 	// Inherited via IDisplayable
-	void Display() const override;
+	void Display(bool isShort) const override;
 };
 

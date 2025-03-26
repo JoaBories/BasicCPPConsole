@@ -26,7 +26,7 @@ string Item::GetDescription() const
 	return mDescription;
 }
 
-void Item::Display() const
+void Item::Display(bool isShort) const
 {
 	cout << mName << " | " << mDescription << endl;
 }

@@ -10,6 +10,6 @@ class IDisplayable
 public:
 	virtual ~IDisplayable() {};
 
-	virtual void Display() const = 0;
+	virtual void Display(bool isShort) const = 0;
 };
 
