@@ -3,12 +3,12 @@
 PokeType::PokeType()
 {
 	mType = Types::Null;
-	mWeakTo = Types::Null;
-	mResistTo = Types::Null;
+	mWeakTo.push_back(Types::Null);
+	mResistTo.push_back(Types::Null);
 	mName = "Normal";
 }
 
-PokeType::PokeType(Types type, Types weak, Types resist, string name)
+PokeType::PokeType(Types type, vector<Types> weak, vector<Types> resist, string name)
 {
 	mType = type;
 	mWeakTo = weak;
@@ -26,12 +26,12 @@ Types PokeType::GetType() const
 	return mType;
 }
 
-Types PokeType::GetWeakNess() const
+vector<Types> PokeType::GetWeakNess() const
 {
 	return mWeakTo;
 }
 
-Types PokeType::GetResistance() const
+vector<Types> PokeType::GetResistance() const
 {
 	return mResistTo;
 }

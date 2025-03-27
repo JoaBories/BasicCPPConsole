@@ -6,6 +6,12 @@ Trainer::Trainer() :
 	inventory = Inventory();
 }
 
+Trainer::Trainer(string name) :
+	mName{ name }
+{
+	inventory = Inventory();
+}
+
 Trainer::~Trainer()
 {
 
@@ -14,11 +20,6 @@ Trainer::~Trainer()
 string Trainer::GetName() const
 {
 	return mName;
-}
-
-void Trainer::SetName(string name)
-{
-	mName = name;
 }
 
 void Trainer::Display(bool isShort) const

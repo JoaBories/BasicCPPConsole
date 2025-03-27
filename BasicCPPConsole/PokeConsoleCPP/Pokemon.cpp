@@ -64,12 +64,32 @@ void Pokemon::Attack(Ability* ability, Pokemon* target)
 
 	float attackDef = mAttack / target->GetDefense();
 	float stab = ((abilityType == mTypes[0]->GetType()) || (abilityType == mTypes[1]->GetType())) ? 1.5f : 1;
-	int weak = 1;
+	float weak = 1;
 
-	weak *= (target->GetTypePtrByIndex(0)->GetWeakNess() == abilityType) ? 2 : 1;
-	weak *= (target->GetTypePtrByIndex(1)->GetWeakNess() == abilityType) ? 2 : 1;
-	weak *= (target->GetTypePtrByIndex(0)->GetResistance() == abilityType) ? 0.5f : 1;
-	weak *= (target->GetTypePtrByIndex(1)->GetResistance() == abilityType) ? 0.5f : 1;
+	PokeType* targetType1 = target->GetTypePtrByIndex(0);
+	PokeType* targetType2 = target->GetTypePtrByIndex(1);
+
+	vector<Types> weakness;
+	weakness = targetType1->GetWeakNess();
+	for (Types weakn : targetType2->GetWeakNess())
+	{
+		weakness.push_back(weakn);
+	}
+	vector<Types> resistance;
+	resistance = targetType1->GetResistance();
+	for (Types res : targetType2->GetResistance())
+	{
+		weakness.push_back(res);
+	}
+
+	for (Types weakn : weakness)
+	{
+		weak *= (weakn == abilityType) ? 2 : 1;
+	}
+	for (Types res : resistance)
+	{
+		weak *= (res == abilityType) ? 0.5f : 1;
+	}
 
 	int damage = ((4 * ability->GetPower() * attackDef) / 50 + 2) * stab * weak;
 

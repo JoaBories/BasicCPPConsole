@@ -12,10 +12,10 @@ private:
 	
 public: 
 	Trainer();
+	Trainer(string name);
 	~Trainer();
 
 	string GetName() const;
-	void SetName(string name);
 
 	Inventory inventory;
 

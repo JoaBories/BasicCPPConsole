@@ -1,5 +1,7 @@
 #include "Trainer.h"
 
+using std::cin;
+
 int main()
 {
     AllPokeTypes i1 = AllPokeTypes();  //Instance initialisation
@@ -14,6 +16,9 @@ int main()
     bulbasaur.Display(true);
     bulbasaur.HealMe(AllItems::Get()->GetHealPtr("Potion"));
     bulbasaur.Display(true);
+
+    string temp;
+    cin >> temp;
 
     return 0;
 }
