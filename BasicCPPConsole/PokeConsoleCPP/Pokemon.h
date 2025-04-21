@@ -13,12 +13,12 @@ private:
 	int mAttack;
 	int mDefense;
 	int mSpeed;
-	Ability *mAbilities[4];
+	Ability *mAbilities[2];
 	PokeType *mTypes[2];
 
 public:
 	Pokemon();
-	Pokemon(string name, int maxHp, int attack, int defense, int speed,Types types[2], string abilities[4]);
+	Pokemon(string name, int maxHp, int attack, int defense, int speed,Types types[2], string abilities[2]);
 	~Pokemon();
 
 	Ability* GetAbilityPtrByIndex(int index);

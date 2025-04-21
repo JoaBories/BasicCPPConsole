@@ -14,7 +14,16 @@ enum class Types
 	Water,
 	Electrik,
 	Fire,
-	Plant
+	Ice,
+	Insect,
+	Normal,
+	Plant,
+	Poison,
+	Psy,
+	Rock,
+	Ground,
+	Specter,
+	Fly
 };
 
 class PokeType

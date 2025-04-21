@@ -2,6 +2,7 @@
 
 #include "Pokemon.h"
 #include "AllItems.h"
+#include "AllPokemons.h"
 #include "Inventory.h"
 
 class Trainer : public IDisplayable

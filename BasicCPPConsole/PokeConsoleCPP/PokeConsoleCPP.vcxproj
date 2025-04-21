@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -130,6 +130,7 @@
     <ClCompile Include="Ability.cpp" />
     <ClCompile Include="AllAbilities.cpp" />
     <ClCompile Include="AllItems.cpp" />
+    <ClCompile Include="AllPokemons.cpp" />
     <ClCompile Include="AllPokeTypes.cpp" />
     <ClCompile Include="Heal.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Ability.h" />
     <ClInclude Include="AllAbilities.h" />
     <ClInclude Include="AllItems.h" />
+    <ClInclude Include="AllPokemons.h" />
     <ClInclude Include="AllPokeTypes.h" />
     <ClInclude Include="Heal.h" />
     <ClInclude Include="IDisplayable.h" />
