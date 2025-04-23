@@ -4,7 +4,7 @@
 #include "AllAbilities.h"
 #include "AllItems.h"
 
-class Pokemon : public IDisplayable
+class Pokemon
 {
 private:
 	string mName;
@@ -21,17 +21,22 @@ public:
 	Pokemon(string name, int maxHp, int attack, int defense, int speed,Types types[2], string abilities[2]);
 	~Pokemon();
 
-	Ability* GetAbilityPtrByIndex(int index);
-	PokeType* GetTypePtrByIndex(int index);
+	Ability* GetAbilityPtrByIndex(int index) const;
+	PokeType* GetTypePtrByIndex(int index) const;
 
 	int GetDefense() const;
+	int GetSpeed() const;
+	string GetName() const;
 
-	void Attack(Ability* ability, Pokemon* target);
+	bool isAlive() const;
+
+	int Attack(int abilityIndex, Pokemon* target, int randomInt);
 	void HealMe(Heal* heal);
 	void TakeDamage(int damage);
 
-	// Inherited via IDisplayable
-	void Display(bool isShort) const override;
+	void DisplayShort() const;
+	void DisplayLarge() const;
+	void DisplayAll() const;
 
 };
 

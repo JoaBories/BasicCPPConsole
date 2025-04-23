@@ -14,5 +14,6 @@ public:
 	static AllPokemons* Get();
 
 	Pokemon GetPokemonCopy(string name);
+	Pokemon* GetPokemonPtr(string name);
 };
 

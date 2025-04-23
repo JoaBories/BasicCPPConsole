@@ -11,8 +11,5 @@ public :
 	~Pokeball();
 
 	float GetCaptureRate() const;
-
-	// Inherited via Item
-	void Display(bool isShort) const override;
 };
 

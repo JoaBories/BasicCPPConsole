@@ -132,6 +132,7 @@
     <ClCompile Include="AllItems.cpp" />
     <ClCompile Include="AllPokemons.cpp" />
     <ClCompile Include="AllPokeTypes.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Heal.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -139,7 +140,6 @@
     <ClCompile Include="PokeConsoleCPP.cpp" />
     <ClCompile Include="Pokemon.cpp" />
     <ClCompile Include="PokeType.cpp" />
-    <ClCompile Include="Trainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ability.h" />
@@ -147,14 +147,13 @@
     <ClInclude Include="AllItems.h" />
     <ClInclude Include="AllPokemons.h" />
     <ClInclude Include="AllPokeTypes.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="Heal.h" />
-    <ClInclude Include="IDisplayable.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Pokeball.h" />
     <ClInclude Include="Pokemon.h" />
     <ClInclude Include="PokeType.h" />
-    <ClInclude Include="Trainer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

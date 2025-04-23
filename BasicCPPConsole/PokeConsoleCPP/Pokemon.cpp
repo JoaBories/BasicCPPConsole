@@ -38,12 +38,12 @@ Pokemon::~Pokemon()
 {
 }
 
-Ability* Pokemon::GetAbilityPtrByIndex(int index)
+Ability* Pokemon::GetAbilityPtrByIndex(int index) const
 {
 	return mAbilities[index];
 }
 
-PokeType* Pokemon::GetTypePtrByIndex(int index)
+PokeType* Pokemon::GetTypePtrByIndex(int index) const
 {
 	return mTypes[index];
 }
@@ -53,10 +53,30 @@ int Pokemon::GetDefense() const
 	return mDefense;
 }
 
-void Pokemon::Attack(Ability* ability, Pokemon* target)
+int Pokemon::GetSpeed() const
 {
+	return mSpeed;
+}
+
+string Pokemon::GetName() const
+{
+	return mName;
+}
+
+bool Pokemon::isAlive() const
+{
+	return (mHp > 0);
+}
+
+int Pokemon::Attack(int abilityIndex, Pokemon* target, int randomInt)
+{
+	if (randomInt > mAbilities[abilityIndex]->GetAccuracy())
+	{
+		return 0;
+	}
+
 	Types abilityType = Types::Null;
-	abilityType = ability->GetTypePtr()->GetType();
+	abilityType = mAbilities[abilityIndex]->GetTypePtr()->GetType();
 
 	float defense = target->GetDefense();
 	float attackDef = mAttack / defense;
@@ -89,9 +109,11 @@ void Pokemon::Attack(Ability* ability, Pokemon* target)
 		weak *= (res == abilityType) ? 0.5f : 1;
 	}
 
-	int damage = ((14 * ability->GetPower() * attackDef) / 50 + 2) * stab * weak;
+	int damage = ((10 * mAbilities[abilityIndex]->GetPower() * attackDef) / 50 + 2) * stab * weak;
 
 	target->TakeDamage(damage);
+
+	return weak;
 }
 
 void Pokemon::HealMe(Heal* heal)
@@ -106,35 +128,48 @@ void Pokemon::TakeDamage(int damage)
 	mHp = mHp <= 0 ? 0 : mHp;
 }
 
-void Pokemon::Display(bool isShort) const
+void Pokemon::DisplayShort() const
 {
-	if (isShort)
-	{
-		string typesString = "";
-		typesString += (mTypes[0]->GetName() != "Null") ? mTypes[0]->GetName() : "";
-		typesString += (typesString == "" && mTypes[1]->GetName() != "Null") ? mTypes[1]->GetName() : (mTypes[1]->GetName() != "Null") ? "-" + mTypes[1]->GetName() : "";
-		string abilityShortString = "";
-		for (int i = 0; i < 2; i++)
-		{
-			abilityShortString += (mAbilities[i]->GetName() != "Null") ? "0" : ".";
-		}
+	string typesString = "";
+	typesString += (mTypes[0]->GetName() != "Null") ? mTypes[0]->GetName() : "";
+	typesString += (typesString == "" && mTypes[1]->GetName() != "Null") ? mTypes[1]->GetName() : (mTypes[1]->GetName() != "Null") ? "-" + mTypes[1]->GetName() : "";
+	//string abilityShortString = "";
+	//for (int i = 0; i < 2; i++)
+	//{
+	//	abilityShortString += (mAbilities[i]->GetName() != "Null") ? "0" : ".";
+	//}
 
-		cout << mName << " | " << mHp << "/" << mMaxHp << " HP | " << typesString << " | " << abilityShortString << endl;
-	}
-	else
+	cout << mName << " | " << mHp << "/" << mMaxHp << " HP | " << typesString << /*" | " << abilityShortString <<*/ endl;
+}
+
+void Pokemon::DisplayLarge() const
+{
+	cout << "Name : " << mName << " | " << mMaxHp << " HP" << endl;
+	cout << "Att : " << mAttack << " | Def : " << mDefense << " | Speed : " << mSpeed << endl;
+	cout << "Types : " << mTypes[0]->GetName() << " | " << mTypes[1]->GetName() << endl;
+	cout << "Abilities : ";
+	for (int i = 0; i < 2; i++)
 	{
-		cout << mName << endl;
-		cout << mHp << "/" << mMaxHp << " HP" << endl;
-		cout << "Attack : " << mAttack << endl;
-		cout << "Defense : " << mDefense << endl;
-		cout << mTypes[0]->GetName() << " | " << mTypes[1]->GetName() << endl;
-		cout << "Abilities : " << endl;
-		for (int i = 0; i < 2; i++)
+		if (mAbilities[i]->GetName() != "Null")
 		{
-			if (mAbilities[i]->GetName() != "Null")
-			{
-				mAbilities[i]->Display(true);
-			}
+			mAbilities[i]->DisplayShort();
+		}
+	}
+}
+
+void Pokemon::DisplayAll() const
+{
+	cout << mName << endl;
+	cout << mHp << "/" << mMaxHp << " HP" << endl;
+	cout << "Attack : " << mAttack << endl;
+	cout << "Defense : " << mDefense << endl;
+	cout << mTypes[0]->GetName() << " | " << mTypes[1]->GetName() << endl;
+	cout << "Abilities : " << endl;
+	for (int i = 0; i < 2; i++)
+	{
+		if (mAbilities[i]->GetName() != "Null")
+		{
+			mAbilities[i]->DisplayShort();
 		}
 	}
 }

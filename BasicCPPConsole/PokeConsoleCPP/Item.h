@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include "IDisplayable.h"
 
 using std::string;
 
@@ -11,7 +10,7 @@ enum class ItemType
 	Pokeball
 };
 
-class Item : public IDisplayable
+class Item
 {
 protected :
 	string mName;
@@ -24,8 +23,5 @@ public :
 
 	string GetName() const;
 	string GetDescription() const;
-
-	// Inherited via IDisplayable
-	void Display(bool isShort) const override;
 };
 

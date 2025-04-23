@@ -1,4 +1,8 @@
 #include "Pokeball.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 Pokeball::Pokeball() :
 	Item{ "Null", "Null" },
@@ -21,9 +25,4 @@ Pokeball::~Pokeball()
 float Pokeball::GetCaptureRate() const
 {
 	return mCaptureRate;
-}
-
-void Pokeball::Display(bool isShort) const
-{
-	cout << mName << " | " << mDescription << " | " << mCaptureRate << endl;
 }

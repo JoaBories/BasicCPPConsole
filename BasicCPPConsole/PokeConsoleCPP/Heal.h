@@ -13,8 +13,5 @@ public:
 	~Heal();
 
 	int GetAmount() const;
-
-	// Inherited via Item
-	void Display(bool isShort) const override;
 };
 

@@ -1,5 +1,10 @@
 #include "Heal.h"
 
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
 Heal::Heal() : 
 	Item{ },
 	mAmount{ 0 }
@@ -7,8 +12,8 @@ Heal::Heal() :
 
 }
 
-Heal::Heal(string name, string desciption, int amount) :
-	Item{ name, desciption },
+Heal::Heal(string name, string description, int amount) :
+	Item{ name, description },
 	mAmount{ amount }
 {
 
@@ -21,9 +26,4 @@ Heal::~Heal()
 int Heal::GetAmount() const
 {
 	return mAmount;
-}
-
-void Heal::Display(bool isShort) const
-{
-	cout << mName << " | " << mDescription << " | " << mAmount << endl;
 }

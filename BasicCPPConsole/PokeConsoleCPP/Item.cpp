@@ -1,5 +1,10 @@
 #include "Item.h"
 
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
 Item::Item() :
 	mName{ "Null" },
 	mDescription{ "Null" }
@@ -24,9 +29,4 @@ string Item::GetName() const
 string Item::GetDescription() const
 {
 	return mDescription;
-}
-
-void Item::Display(bool isShort) const
-{
-	cout << mName << " | " << mDescription << endl;
 }

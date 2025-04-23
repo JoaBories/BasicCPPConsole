@@ -1,4 +1,8 @@
 #include "Ability.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 Ability::Ability() :
 	mName{ "Null" },
@@ -40,7 +44,15 @@ int Ability::GetAccuracy() const
 	return mAccuracy;
 }
 
-void Ability::Display(bool isShort) const
+void Ability::DisplayShort() const
 {
-	cout << mName << " | " << mType->GetName() << endl;
+	cout << "[" << mName << " / " << mType->GetName() << "] ";
+}
+
+void Ability::DisplayAll() const
+{
+	cout << "Ability: " << mName << " | ";
+	cout << "Type: " << mType->GetName() << " | ";
+	cout << "Power: " << mPower << " | ";
+	cout << "Accuracy: " << mAccuracy << " | ";
 }

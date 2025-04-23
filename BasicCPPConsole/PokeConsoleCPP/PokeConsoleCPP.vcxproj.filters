@@ -18,9 +18,6 @@
     <ClCompile Include="PokeConsoleCPP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Trainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pokemon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,11 +51,11 @@
     <ClCompile Include="AllPokemons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Trainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pokemon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -80,9 +77,6 @@
     <ClInclude Include="Heal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IDisplayable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pokeball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -93,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AllPokemons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

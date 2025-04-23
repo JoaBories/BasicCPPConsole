@@ -34,3 +34,8 @@ Pokemon AllPokemons::GetPokemonCopy(string name)
 {
 	return mAllPokemons[name];
 }
+
+Pokemon* AllPokemons::GetPokemonPtr(string name)
+{
+	return &mAllPokemons[name];
+}

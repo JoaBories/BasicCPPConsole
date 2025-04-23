@@ -3,11 +3,9 @@
 #include "AllPokeTypes.h"
 #include <string>
 
-#include "IDisplayable.h"
-
 using std::string;
 
-class Ability : public IDisplayable
+class Ability
 {
 private:
 	string mName;
@@ -27,8 +25,8 @@ public:
 	int GetPower() const ;
 	int GetAccuracy() const ;
 
-	// Inherited via IDisplayable
-	void Display(bool isShort) const override;
+	void DisplayShort() const;
+	void DisplayAll() const;
 
 };
 
