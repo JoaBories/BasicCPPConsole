@@ -6,49 +6,11 @@ using std::random_device;
 using std::mt19937;
 using std::uniform_int_distribution;
 
+using std::to_string;
+
 using std::cout;
 using std::endl;
 using std::cin;
-
-void Engine::ClearConsole()
-{
-	system("cls");
-}
-
-void Engine::Jumpline()
-{
-	cout << endl;
-}
-
-void Engine::WaitEnter()
-{
-	cout << endl << "Press Enter to continue..." << endl;
-	cin.clear();
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	cin.get();
-
-	ClearConsole();
-}
-
-int Engine::AskForInput(int maxInput)
-{
-	int input = 0;
-	while (true)
-	{
-		std::cin >> input;
-
-		if (std::cin.fail() || input < 1 || input > maxInput)
-		{
-			std::cin.clear(); // clear the error flag
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-			std::cout << "Invalid input. Try again." << std::endl;
-		}
-		else
-		{
-			return input; // valid input
-		}
-	}
-}
 
 int Engine::RandInt(int min, int max)
 {
@@ -59,243 +21,171 @@ int Engine::RandInt(int min, int max)
 	return distr(gen);
 }
 
-void Engine::StartBattle()
+void Engine::RandEnemyPokemon()
 {
 	int randomPokemon = RandInt(1, 3);
 	switch (randomPokemon)
 	{
 	case 1:
-		mEnemyPokemon = AllPokemons::Get()->GetPokemonCopy("Pidgey");
+		mEnemyPokemon = AllPokemons::Get()->GetPokemonCopy("pidgey");
 		break;
 
 	case 2:
-		mEnemyPokemon = AllPokemons::Get()->GetPokemonCopy("Caterpie");
+		mEnemyPokemon = AllPokemons::Get()->GetPokemonCopy("caterpie");
 		break;
 
 	case 3:
-		mEnemyPokemon = AllPokemons::Get()->GetPokemonCopy("Rattata");
+		mEnemyPokemon = AllPokemons::Get()->GetPokemonCopy("rattata");
 		break;
 	}
-
-	cout << "A wild " << mEnemyPokemon.GetName() << " appeared!";
-
-	WaitEnter();
-
-	BattleLoop();
 }
 
-void Engine::BattleLoop()
+void Engine::DisplayPokemon(Pokemon pokemon, float x, float y, float scale, bool fight) const
 {
-	while (mPlayerPokemon.isAlive() && mEnemyPokemon.isAlive())
+	Texture pokemonTexture = AllPokemons::Get()->GetPokemonTexture(pokemon.GetName());
+	// Display the Pokemon's texture at the specified coordinates
+	float xCentered = x - (pokemonTexture.width / 2) * scale;
+	float yCentered = y - (pokemonTexture.height / 2) * scale;
+
+	DrawTextureEx(pokemonTexture, Vector2{ xCentered, yCentered }, 0, scale, WHITE);
+
+	// Display the Pokemon's name below the texture
+	DrawTextCentered(pokemon.GetName().c_str(), x, yCentered + pokemonTexture.height * scale + 5, 20, WHITE);
+
+	if (fight)
 	{
-		ClearConsole();
-		cout << "Your Pokemon: ";
-		mPlayerPokemon.DisplayShort();
-		cout << "Enemy Pokemon: ";
-		mEnemyPokemon.DisplayShort();
-
-		cout << "Choose your action:" << endl;
-		cout << "1. Attack" << endl;
-		cout << "2. Heal" << endl;
-
-		int action = AskForInput(2);
-
-		switch (action)
-		{
-		case 1:
-		{
-			cout << "Choose your ability:" << endl;
-			cout << "1. ";
-			mPlayerPokemon.GetAbilityPtrByIndex(0)->DisplayShort();
-			Jumpline();
-			cout << "2. ";
-			mPlayerPokemon.GetAbilityPtrByIndex(1)->DisplayShort();
-			Jumpline();
-
-			int abilityIndex = AskForInput(2) - 1;
-			int enemyAbilityIndex = RandInt(0, 1);
-
-			int weak = 0;
-
-			if (mPlayerPokemon.GetSpeed() >= mEnemyPokemon.GetSpeed())
-			{
-				weak = mPlayerPokemon.Attack(abilityIndex, &mEnemyPokemon, RandInt(0,100));
-				cout << mPlayerPokemon.GetName() << " used " << mPlayerPokemon.GetAbilityPtrByIndex(abilityIndex)->GetName() << "!" << endl;
-				switch (weak)
-				{
-				case 0:
-					cout << "It failed" << endl;
-					break;
-
-				case 2:
-					cout << "It's effective!" << endl;
-					break;
-
-				case 4:
-					cout << "It's super effective..." << endl;
-					break;
-				}
-				Jumpline();
-
-				if (mEnemyPokemon.isAlive())
-				{
-					weak = mEnemyPokemon.Attack(enemyAbilityIndex, &mPlayerPokemon, RandInt(0, 100));
-					cout << mEnemyPokemon.GetName() << " used " << mEnemyPokemon.GetAbilityPtrByIndex(enemyAbilityIndex)->GetName() << "!" << endl;
-					switch (weak)
-					{
-					case 0:
-						cout << "It failed" << endl;
-						break;
-
-					case 2:
-						cout << "It's effective!" << endl;
-						break;
-
-					case 4:
-						cout << "It's super effective..." << endl;
-						break;
-					}
-				}
-
-			}
-			else
-			{
-				weak = mEnemyPokemon.Attack(enemyAbilityIndex, &mPlayerPokemon, RandInt(0, 100));
-				cout << mEnemyPokemon.GetName() << " used " << mEnemyPokemon.GetAbilityPtrByIndex(enemyAbilityIndex)->GetName() << "!" << endl;
-				switch (weak)
-				{
-				case 0:
-					cout << "It failed" << endl;
-					break;
-
-				case 2:
-					cout << "It's effective!" << endl;
-					break;
-
-				case 4:
-					cout << "It's super effective..." << endl;
-					break;
-				}
-
-				Jumpline();
-
-				if (mEnemyPokemon.isAlive())
-				{
-					weak = mPlayerPokemon.Attack(abilityIndex, &mEnemyPokemon, RandInt(0, 100));
-					cout << mPlayerPokemon.GetName() << " used " << mPlayerPokemon.GetAbilityPtrByIndex(abilityIndex)->GetName() << "!" << endl;
-					switch (weak)
-					{
-					case 0:
-						cout << "It failed" << endl;
-						break;
-
-					case 2:
-						cout << "It's effective!" << endl;
-						break;
-
-					case 4:
-						cout << "It's super effective..." << endl;
-						break;
-					}
-				}
-			}
-
-			break;
-		}
-
-		case 2:
-		{
-			mPlayerInventory.RemoveItemFromInventory("Potion");
-			mPlayerPokemon.HealMe(AllItems::Get()->GetHealPtr("Potion"));
-
-			cout << "You used a Potion, you have" << mPlayerInventory.GetItemNumberInInventory("Potion") << endl;
-			
-			int enemyAbilityIndex = RandInt(0, 1);
-
-			int weak = mEnemyPokemon.Attack(enemyAbilityIndex, &mPlayerPokemon, RandInt(0, 100));
-			cout << mEnemyPokemon.GetName() << " used " << mEnemyPokemon.GetAbilityPtrByIndex(enemyAbilityIndex)->GetName() << "!" << endl;
-			switch (weak)
-			{
-			case 0:
-				cout << "It failed" << endl;
-				break;
-
-			case 2:
-				cout << "It's effective!" << endl;
-				break;
-
-			case 4:
-				cout << "It's super effective..." << endl;
-				break;
-			}
-
-			Jumpline();
-
-			break;
-		}
-
-
-		}
-
-		if (!mPlayerPokemon.isAlive())
-		{
-			LooseBattle();
-			return;
-		}
-		else if (!mEnemyPokemon.isAlive())
-		{
-			StartBattle();
-			return;
-		}
-
-		WaitEnter();
+		string hpText = "HP: " + to_string(pokemon.GetHp()) + " / " + to_string(pokemon.GetMaxHp());
+		DrawTextCentered(hpText.c_str(), x, yCentered + pokemonTexture.height * scale + 5, 20, WHITE);
 	}
-
-	return;
 }
 
-void Engine::LooseBattle()
+void Engine::DrawTextCentered(const char* text, int x, int y, int fontSize, Color color) const
 {
-	cout << "You lost the battle!" << endl;
-	return;
+	int textWidth = MeasureText(text, fontSize);
+	int xCentered = x - (textWidth / 2);
+	xCentered = xCentered < 0 ? 0 : xCentered;
+	xCentered = xCentered > mScreenSize.x ? mScreenSize.x : xCentered;
+	y = y < 0 ? 0 : y;
+	y = y > mScreenSize.y ? mScreenSize.y : y;
+
+	DrawText(text, xCentered, y, fontSize, color);
 }
 
 Engine::Engine() :
-mPlayerInventory{ Inventory() }
+mPlayerInventory{ Inventory() },
+mGameState{ GameStates::Null },
+mScreenSize { 0, 0 }
 {
-	cout << "Welcome to the Pokemon Battle!" << endl;
-	cout << "Please select your Pokemon:" << endl;
-	cout << "1. ";
-	AllPokemons::Get()->GetPokemonPtr("Charmander")->DisplayShort();
-	cout << "2. ";
-	AllPokemons::Get()->GetPokemonPtr("Squirtle")->DisplayShort();
-	cout << "3. ";
-	AllPokemons::Get()->GetPokemonPtr("Bulbasaur")->DisplayShort();
+	
+}
 
-	switch (AskForInput(3))
-	{
-	case 1:
-		mPlayerPokemon = AllPokemons::Get()->GetPokemonCopy("Charmander");
-		break;
-
-	case 2:
-		mPlayerPokemon = AllPokemons::Get()->GetPokemonCopy("Squirtle");
-		break;
-
-	case 3:
-		mPlayerPokemon = AllPokemons::Get()->GetPokemonCopy("Bulbasaur");
-		break;
-
-	}
-	ClearConsole();
-	cout << "You have selected: ";
-	mPlayerPokemon.DisplayLarge();
-
-	WaitEnter();
-
-	StartBattle();
+Engine::Engine(float screenWidth, float screenHeight) :
+mPlayerInventory{ Inventory() },
+mGameState{ GameStates::Null },
+mScreenSize{ screenWidth, screenHeight }
+{
 }
 
 Engine::~Engine()
 {
+}
+
+void Engine::Init()
+{
+	AllPokemons::Get()->LoadAllTextures();
+}
+
+void Engine::Update()
+{
+	switch (mGameState)
+	{
+	case Null:
+		break;
+
+	case StarterChoice:
+		if (IsKeyPressed(KEY_ONE))
+		{
+			mPlayerPokemon = AllPokemons::Get()->GetPokemonCopy("bulbasaur");
+			RandEnemyPokemon();
+			mGameState = GameStates::BeginBattle;
+		}
+		else if (IsKeyPressed(KEY_TWO))
+		{
+			mPlayerPokemon = AllPokemons::Get()->GetPokemonCopy("charmander");
+			RandEnemyPokemon();
+			mGameState = GameStates::BeginBattle;
+		}
+		else if (IsKeyPressed(KEY_THREE))
+		{
+			mPlayerPokemon = AllPokemons::Get()->GetPokemonCopy("squirtle");
+			RandEnemyPokemon();
+			mGameState = GameStates::BeginBattle;
+		}
+		break;
+
+	case BeginBattle:
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			mGameState = GameStates::ActionChoice;
+		}
+		break;
+
+	case ActionChoice:
+		if (IsKeyPressed(KEY_ONE))
+		{
+			mGameState = GameStates::AbilityChoice;
+		}
+		else if (IsKeyPressed(KEY_TWO))
+		{
+			mGameState = GameStates::ConfirmHeal;
+		}
+		break;
+	}
+}
+
+void Engine::Draw()
+{
+	float topScreenPos = mScreenSize.y / 4;
+	float middleScreenPos = mScreenSize.y / 2;
+	float bottomScreenPos = mScreenSize.y / 4 * 3;
+
+
+	switch (mGameState)
+	{
+	case Null:
+		
+		break;
+
+	case StarterChoice:
+
+		DisplayPokemon(AllPokemons::Get()->GetPokemonCopy("bulbasaur"), mScreenSize.x / 5, topScreenPos, 4, false);
+		DisplayPokemon(AllPokemons::Get()->GetPokemonCopy("charmander"), mScreenSize.x / 2, topScreenPos, 4, false);
+		DisplayPokemon(AllPokemons::Get()->GetPokemonCopy("squirtle"), mScreenSize.x / 5 * 4, topScreenPos, 4, false);
+
+		DrawTextCentered("Choose your starter Pokemon", mScreenSize.x / 2, middleScreenPos, 20, WHITE);
+
+		DrawTextCentered("1", mScreenSize.x / 5, bottomScreenPos, 40, WHITE);
+		DrawTextCentered("2", mScreenSize.x / 2, bottomScreenPos, 40, WHITE);
+		DrawTextCentered("3", mScreenSize.x / 5 * 4, bottomScreenPos, 40, WHITE);
+		break;
+
+	case BeginBattle:
+		DisplayPokemon(mEnemyPokemon, mScreenSize.x / 2, topScreenPos, 4, false);
+
+		DrawTextCentered(("A wild " + mEnemyPokemon.GetName() + " appeared").c_str(), mScreenSize.x / 2, middleScreenPos, 20, WHITE);
+
+		DrawTextCentered("Press Enter to continue", mScreenSize.x / 2, bottomScreenPos, 20, WHITE);
+		break;
+
+	case ActionChoice:
+		DrawTextCentered("Choose an action", mScreenSize.x / 2, middleScreenPos, 20, WHITE);
+		DrawTextCentered("1 Attack", mScreenSize.x / 4, bottomScreenPos, 20, WHITE);
+		DrawTextCentered("2 Heal", mScreenSize.x / 4 * 3, bottomScreenPos, 20, WHITE);
+		break;
+	}
+}
+
+void Engine::Start()
+{
+	mGameState = GameStates::StarterChoice;
 }

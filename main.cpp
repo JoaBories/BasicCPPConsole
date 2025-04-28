@@ -7,13 +7,25 @@
 void Init();
 void DeInit();
 void UpdateDraw();
+void Update();
+void Draw();
+
+int screenWidth = 720;
+int screenHeight = 720;
 
 Texture LoadTextureFromSource(const char *source);
+
+AllPokeTypes i1 = AllPokeTypes();  //Instance initialisation
+AllAbilities i2 = AllAbilities();
+AllItems i3 = AllItems();
+AllPokemons i4 = AllPokemons();
+
+Engine engine = Engine(screenWidth, screenHeight);
 
 int main() {   
     
     Init();
-
+    
     while (!WindowShouldClose()) {  
    
         UpdateDraw();
@@ -30,20 +42,29 @@ void Init()
     InitWindow(720, 720, "PokeRaylib");
     SetTargetFPS(60);
 
-    AllPokeTypes i1 = AllPokeTypes();  //Instance initialisation
-    AllAbilities i2 = AllAbilities();
-    AllItems i3 = AllItems();
-    AllPokemons i4 = AllPokemons();
-
-    Engine engine;
+	engine.Init();
+	engine.Start();
 }
 
 void UpdateDraw()
 {
-    BeginDrawing();
-    ClearBackground(BLACK);
+	Update();
 
+    BeginDrawing();
+	Draw();
+
+    ClearBackground(BLACK);
     EndDrawing();
+}
+
+void Update()
+{
+	engine.Update();
+}
+
+void Draw()
+{
+	engine.Draw();
 }
 
 void DeInit()
