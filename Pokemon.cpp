@@ -4,18 +4,6 @@
 using std::cout;
 using std::endl;
 
-//Texture Pokemon::LoadTextureFromSource()
-//{
-//	string path = "resources/img/" + mName + ".png";
-//	Image img = LoadImage(path.c_str());
-//
-//	Texture texture = LoadTextureFromImage(img);
-//
-//	UnloadImage(img);
-//
-//	return texture;
-//}
-
 Pokemon::Pokemon() :
 	mName{ "" },
 	mMaxHp{ 0 },
@@ -131,7 +119,7 @@ int Pokemon::Attack(int abilityIndex, Pokemon* target, int randomInt)
 		weak *= (res == abilityType) ? 0.5f : 1;
 	}
 
-	int damage = ((10 * mAbilities[abilityIndex]->GetPower() * attackDef) / 50 + 2) * stab * weak;
+	int damage = ((5 * mAbilities[abilityIndex]->GetPower() * attackDef) / 50 + 2) * stab * weak;
 
 	target->TakeDamage(damage);
 
@@ -149,49 +137,3 @@ void Pokemon::TakeDamage(int damage)
 	mHp -= damage;
 	mHp = mHp <= 0 ? 0 : mHp;
 }
-
-//void Pokemon::DisplayShort() const
-//{
-//	string typesString = "";
-//	typesString += (mTypes[0]->GetName() != "Null") ? mTypes[0]->GetName() : "";
-//	typesString += (typesString == "" && mTypes[1]->GetName() != "Null") ? mTypes[1]->GetName() : (mTypes[1]->GetName() != "Null") ? "-" + mTypes[1]->GetName() : "";
-//	//string abilityShortString = "";
-//	//for (int i = 0; i < 2; i++)
-//	//{
-//	//	abilityShortString += (mAbilities[i]->GetName() != "Null") ? "0" : ".";
-//	//}
-//
-//	cout << mName << " | " << mHp << "/" << mMaxHp << " HP | " << typesString << /*" | " << abilityShortString <<*/ endl;
-//}
-//
-//void Pokemon::DisplayLarge() const
-//{
-//	cout << "Name : " << mName << " | " << mMaxHp << " HP" << endl;
-//	cout << "Att : " << mAttack << " | Def : " << mDefense << " | Speed : " << mSpeed << endl;
-//	cout << "Types : " << mTypes[0]->GetName() << " | " << mTypes[1]->GetName() << endl;
-//	cout << "Abilities : ";
-//	for (int i = 0; i < 2; i++)
-//	{
-//		if (mAbilities[i]->GetName() != "Null")
-//		{
-//			mAbilities[i]->DisplayShort();
-//		}
-//	}
-//}
-//
-//void Pokemon::DisplayAll() const
-//{
-//	cout << mName << endl;
-//	cout << mHp << "/" << mMaxHp << " HP" << endl;
-//	cout << "Attack : " << mAttack << endl;
-//	cout << "Defense : " << mDefense << endl;
-//	cout << mTypes[0]->GetName() << " | " << mTypes[1]->GetName() << endl;
-//	cout << "Abilities : " << endl;
-//	for (int i = 0; i < 2; i++)
-//	{
-//		if (mAbilities[i]->GetName() != "Null")
-//		{
-//			mAbilities[i]->DisplayShort();
-//		}
-//	}
-//}

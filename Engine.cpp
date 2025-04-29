@@ -172,7 +172,7 @@ void Engine::Update()
 			mLastEnemyAbilityIndex = RandInt(0, 1);
 			mLastPlayerAbilityIndex = 2;
 			mEnemyPokemon.Attack( mLastEnemyAbilityIndex, &mPlayerPokemon, RandInt(0, 100));
-			mPlayerPokemon.HealMe(AllItems::Get()->GetHealPtr("potion"));
+			mPlayerPokemon.HealMe(AllItems::Get()->GetHealPtr("Potion"));
 			mGameState = GameStates::RoundRecap;
 		}
 		break;
@@ -215,6 +215,7 @@ void Engine::Update()
 	case EndBattle:
 		if (IsKeyPressed(KEY_ENTER))
 		{
+			RandEnemyPokemon();
 			mGameState = GameStates::BeginBattle;
 		}
 		break;
@@ -225,6 +226,7 @@ void Engine::Update()
 			mShouldExit = true;
 		}
 		break;
+
 	}
 
 
@@ -307,6 +309,7 @@ void Engine::Draw()
 		DrawTextCentered("You won the battle", mScreenSize.x / 2, middleScreenPos, 20, WHITE);
 
 		DrawTextCentered("Press Enter to continue", mScreenSize.x / 2, bottomScreenPos, 20, WHITE);
+		break;
 
 	case YouLoose:
 		DisplayPokemon(mPlayerPokemon, mScreenSize.x / 2, topScreenPos, 4, true);

@@ -22,6 +22,8 @@ AllPokemons i4 = AllPokemons();
 
 Engine engine = Engine(screenWidth, screenHeight);
 
+Music music;
+
 int main() {   
     
     Init();
@@ -45,6 +47,9 @@ void Init()
     InitWindow(720, 720, "PokeRaylib");
     SetTargetFPS(60);
 
+    music = LoadMusicStream("resources/sound/music.mp3");
+    PlayMusicStream(music);
+
 	engine.Init();
 	engine.Start();
 }
@@ -52,6 +57,8 @@ void Init()
 void UpdateDraw()
 {
 	Update();
+
+    UpdateMusicStream(music);
 
     BeginDrawing();
 	Draw();
@@ -72,6 +79,7 @@ void Draw()
 
 void DeInit()
 {
+    UnloadMusicStream(music);
     CloseWindow();
 
 }
