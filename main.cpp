@@ -47,6 +47,8 @@ void Init()
     InitWindow(720, 720, "PokeRaylib");
     SetTargetFPS(60);
 
+	InitAudioDevice();
+
     music = LoadMusicStream("resources/sound/music.mp3");
     PlayMusicStream(music);
 
@@ -81,6 +83,7 @@ void DeInit()
 {
     UnloadMusicStream(music);
     CloseWindow();
+	CloseAudioDevice();
 
 }
 
