@@ -10,7 +10,9 @@ enum GameStates
 	BeginBattle,
 	ActionChoice,
 	AbilityChoice,
-	ConfirmHeal,
+	RoundRecap,
+	EndBattle,
+	YouLoose,
 };
 
 
@@ -26,10 +28,18 @@ private:
 
 	Vector2 mScreenSize;
 
+	int mLastPlayerAbilityIndex;
+	int mLastEnemyAbilityIndex;
+
+	bool mShouldExit;
+
 	int RandInt(int min ,int max);
 	void RandEnemyPokemon();
 
+	void RoundFight();
+
 	void DisplayPokemon(Pokemon pokemon, float x, float y, float scale, bool fight) const;
+	void DisplayBattleRecap(float yPos) const;
 	void DrawTextCentered(const char* text, int x, int y, int fontSize, Color color) const;
 
 public:
@@ -38,6 +48,8 @@ public:
 	~Engine();
 
 	void Init();
+
+	bool ShouldExit() const { return mShouldExit; }
 
 	void Update();
 	void Draw();

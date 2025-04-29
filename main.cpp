@@ -30,6 +30,9 @@ int main() {
    
         UpdateDraw();
         
+		if (engine.ShouldExit()) {
+			break;
+		}
     }
 
     DeInit();

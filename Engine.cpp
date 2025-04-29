@@ -40,6 +40,26 @@ void Engine::RandEnemyPokemon()
 	}
 }
 
+void Engine::RoundFight()
+{
+	if (mPlayerPokemon.GetSpeed() > mEnemyPokemon.GetSpeed())
+	{
+		mPlayerPokemon.Attack(mLastPlayerAbilityIndex, &mEnemyPokemon, RandInt(0, 100));
+		if (mEnemyPokemon.isAlive())
+		{
+			mEnemyPokemon.Attack(mLastEnemyAbilityIndex, &mPlayerPokemon, RandInt(0, 100));
+		}
+	}
+	else
+	{
+		mEnemyPokemon.Attack(mLastEnemyAbilityIndex, &mPlayerPokemon, RandInt(0, 100));
+		if (mPlayerPokemon.isAlive())
+		{
+			mPlayerPokemon.Attack(mLastPlayerAbilityIndex, &mEnemyPokemon, RandInt(0, 100));
+		}
+	}
+}
+
 void Engine::DisplayPokemon(Pokemon pokemon, float x, float y, float scale, bool fight) const
 {
 	Texture pokemonTexture = AllPokemons::Get()->GetPokemonTexture(pokemon.GetName());
@@ -55,8 +75,14 @@ void Engine::DisplayPokemon(Pokemon pokemon, float x, float y, float scale, bool
 	if (fight)
 	{
 		string hpText = "HP: " + to_string(pokemon.GetHp()) + " / " + to_string(pokemon.GetMaxHp());
-		DrawTextCentered(hpText.c_str(), x, yCentered + pokemonTexture.height * scale + 5, 20, WHITE);
+		DrawTextCentered(hpText.c_str(), x, yCentered + pokemonTexture.height * scale + 30, 20, WHITE);
 	}
+}
+
+void Engine::DisplayBattleRecap(float yPos) const
+{
+	DisplayPokemon(mPlayerPokemon, mScreenSize.x / 4, yPos, 4, true);
+	DisplayPokemon(mEnemyPokemon, mScreenSize.x / 4 * 3, yPos, 4, true);
 }
 
 void Engine::DrawTextCentered(const char* text, int x, int y, int fontSize, Color color) const
@@ -74,7 +100,10 @@ void Engine::DrawTextCentered(const char* text, int x, int y, int fontSize, Colo
 Engine::Engine() :
 mPlayerInventory{ Inventory() },
 mGameState{ GameStates::Null },
-mScreenSize { 0, 0 }
+mScreenSize { 0, 0 },
+mLastPlayerAbilityIndex{ 0 },
+mLastEnemyAbilityIndex{ 0 },
+mShouldExit{ false }
 {
 	
 }
@@ -82,7 +111,10 @@ mScreenSize { 0, 0 }
 Engine::Engine(float screenWidth, float screenHeight) :
 mPlayerInventory{ Inventory() },
 mGameState{ GameStates::Null },
-mScreenSize{ screenWidth, screenHeight }
+mScreenSize{ screenWidth, screenHeight },
+mLastPlayerAbilityIndex{ 0 },
+mLastEnemyAbilityIndex{ 0 },
+mShouldExit{ false }
 {
 }
 
@@ -137,10 +169,65 @@ void Engine::Update()
 		}
 		else if (IsKeyPressed(KEY_TWO))
 		{
-			mGameState = GameStates::ConfirmHeal;
+			mLastEnemyAbilityIndex = RandInt(0, 1);
+			mLastPlayerAbilityIndex = 2;
+			mEnemyPokemon.Attack( mLastEnemyAbilityIndex, &mPlayerPokemon, RandInt(0, 100));
+			mPlayerPokemon.HealMe(AllItems::Get()->GetHealPtr("potion"));
+			mGameState = GameStates::RoundRecap;
+		}
+		break;
+
+	case AbilityChoice:
+		if (IsKeyPressed(KEY_ONE))
+		{
+			mLastPlayerAbilityIndex = 0;
+			mLastEnemyAbilityIndex = RandInt(0, 1);
+			RoundFight();
+			mGameState = GameStates::RoundRecap;
+		}
+		else if (IsKeyPressed(KEY_TWO))
+		{
+			mLastPlayerAbilityIndex = 1;
+			mLastEnemyAbilityIndex = RandInt(0, 1);
+			RoundFight();
+			mGameState = GameStates::RoundRecap;
+		}
+		break;
+
+	case RoundRecap:
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			if (!mPlayerPokemon.isAlive())
+			{
+				mGameState = GameStates::YouLoose;
+			}
+			else if (!mEnemyPokemon.isAlive())
+			{
+				mGameState = GameStates::EndBattle;
+			}
+			else
+			{
+				mGameState = GameStates::ActionChoice;
+			}
+		}
+		break;
+
+	case EndBattle:
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			mGameState = GameStates::BeginBattle;
+		}
+		break;
+
+	case YouLoose:
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			mShouldExit = true;
 		}
 		break;
 	}
+
+
 }
 
 void Engine::Draw()
@@ -178,9 +265,55 @@ void Engine::Draw()
 		break;
 
 	case ActionChoice:
+		DisplayBattleRecap(topScreenPos);
+
 		DrawTextCentered("Choose an action", mScreenSize.x / 2, middleScreenPos, 20, WHITE);
+
 		DrawTextCentered("1 Attack", mScreenSize.x / 4, bottomScreenPos, 20, WHITE);
 		DrawTextCentered("2 Heal", mScreenSize.x / 4 * 3, bottomScreenPos, 20, WHITE);
+		break;
+
+	case AbilityChoice:
+		DisplayBattleRecap(topScreenPos);
+
+		DrawTextCentered("Choose an ability", mScreenSize.x / 2, middleScreenPos, 20, WHITE);
+
+		DrawTextCentered(("1 " + mPlayerPokemon.GetAbilityPtrByIndex(0)->GetName()).c_str(), mScreenSize.x / 4, bottomScreenPos, 20, WHITE);
+		DrawTextCentered(("2 " + mPlayerPokemon.GetAbilityPtrByIndex(1)->GetName()).c_str(), mScreenSize.x / 4 * 3, bottomScreenPos, 20, WHITE);
+		break;
+
+	case RoundRecap:
+		DisplayBattleRecap(topScreenPos);
+
+		switch (mLastPlayerAbilityIndex)
+		{
+		case 2:
+			DrawTextCentered((mPlayerPokemon.GetName() + " used heal").c_str(), mScreenSize.x / 4, middleScreenPos, 20, WHITE);
+			break;
+		default:
+			DrawTextCentered((mPlayerPokemon.GetName() + " used " + mPlayerPokemon.GetAbilityPtrByIndex(mLastPlayerAbilityIndex)->GetName()).c_str(), mScreenSize.x / 4, middleScreenPos, 20, WHITE);
+			break;
+		}
+
+		DrawTextCentered((mEnemyPokemon.GetName() + " used " + mEnemyPokemon.GetAbilityPtrByIndex(mLastEnemyAbilityIndex)->GetName()).c_str(), mScreenSize.x / 4 * 3, middleScreenPos, 20, WHITE);
+
+		DrawTextCentered("Press Enter to continue", mScreenSize.x / 2, bottomScreenPos, 20, WHITE);
+
+		break;
+
+	case EndBattle:
+		DisplayPokemon(mPlayerPokemon, mScreenSize.x / 2, topScreenPos, 4, true);
+
+		DrawTextCentered("You won the battle", mScreenSize.x / 2, middleScreenPos, 20, WHITE);
+
+		DrawTextCentered("Press Enter to continue", mScreenSize.x / 2, bottomScreenPos, 20, WHITE);
+
+	case YouLoose:
+		DisplayPokemon(mPlayerPokemon, mScreenSize.x / 2, topScreenPos, 4, true);
+
+		DrawTextCentered("You lost the battle", mScreenSize.x / 2, middleScreenPos, 20, WHITE);
+
+		DrawTextCentered("Press Enter to Exit", mScreenSize.x / 2, bottomScreenPos, 20, WHITE);
 		break;
 	}
 }
